@@ -10,7 +10,7 @@ function IngredientList({ items }) {
   return (
     <div className="place-items-start">
       <h1 className="font-semibold">Ingredients on hand:</h1>
-      <ul className="list-disc pl-5 text-justify space-y-3 mt-3 mb-10">
+      <ul className="mb-10 mt-3 list-disc space-y-3 pl-5 text-justify">
         {items.map((item, index) => (
           <motion.li
             initial={{ opacity: 0, y: 10 }}

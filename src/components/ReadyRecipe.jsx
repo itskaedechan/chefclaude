@@ -35,9 +35,12 @@ export default function ReadyRecipe({ items, onResult }) {
   }, [triggered, items]); // only run when `triggered` becomes true
 
   return (
-    <div className="grid grid-cols-[2fr_1fr] items-center bg-[#F0EFEB] p-6">
-      <div className="auto-rows-3 text-justify ml-4">
-        <h3 className="text-lg text-[#141413] font-medium">
+    <div
+      name="recipe-section"
+      className="grid grid-cols-[2fr_1fr] items-center bg-[#F0EFEB] p-6"
+    >
+      <div className="auto-rows-3 ml-4 text-justify">
+        <h3 className="text-lg font-medium text-[#141413]">
           {" "}
           Ready for a recipe?
         </h3>
@@ -48,16 +51,11 @@ export default function ReadyRecipe({ items, onResult }) {
       <button
         onClick={handleClick}
         disabled={items.length === 0}
-        className="text-sm bg-[#D17557] w-[185px] transition delay-100 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-orange-700"
+        className="w-[185px] bg-[#D17557] text-sm transition delay-100 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-orange-700"
       >
         {loading ? "Generating..." : "Get a Recipe"}
-      </button>
-
-      {result && (
-        <div className="mt-4 p-4 bg-gray-100 rounded shadow">
-          <pre className="text-sm text-[#141413]">{result}</pre>
-        </div>
-      )}
+      </button>{" "}
+      {/*Get a recipe button*/}
     </div>
   );
 }

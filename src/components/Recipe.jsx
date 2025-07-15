@@ -1,51 +1,77 @@
-export default function Recipe({ dish, items }) {
-  const [ingredients, instructions] = dish.split("Instructions:");
+import { motion } from "framer-motion";
+
+export default function Recipe({ dish, items, onReset }) {
+  function cleanText(text) {
+    return text
+      .split("\n")
+      .map((line) => line.trim())
+      .join("\n");
+  }
+
+  const food = cleanText(dish.replaceAll("*", ""));
+  const intro = cleanText(food?.split("Ingredients:")[0].trim());
+  const ingredientsText = cleanText(
+    food?.split("Ingredients:")[1].split("Instructions:")[0].trim(),
+  );
+  const instructionsText = cleanText(
+    food?.split("Ingredients:")[1].trim().split("Instructions:")[1].trim(),
+  );
+
+  // Convert Ingredients & Instructions into arrays
+  function splitLines(raw) {
+    return raw.split("\n").filter((line) => line.trim() !== "");
+  }
+  const ingredientsList = splitLines(ingredientsText);
+  const instructionsList = splitLines(instructionsText);
+
+  {
+    /* Display results from search */
+  }
   return (
-    <div className="pt-10 w-full max-w-2xl mx-auto place-items-start">
-      <h1 className="font-semibold"> Suggested Recipe:</h1>
-      <p className="text-[#475467] text-justify mt-3">
-        Based on your available ingredients, I would recommend making a Creamy
-        Garlic Parmesan Chicken dish. Here’s the recipe.
-      </p>
-      {/* <p className="text-[#475467] text-justify mt-3">
-        Based on your available ingredients, I would recommend making a ${dish}. Here’s the recipe.
-        get specific dish from response
-      </p> */}
-
-      <h2 className="text-[#475467] text-lg font-bold mt-10">Ingredients:</h2>
-      {/* <ul className="list-disc pl-5 text-justify space-y-3 mt-3 mb-10">
-        <li>4 boneless, skinless chicken breasts</li>
-        <li>Salt and pepper to taste</li>
-        <li>2 tablespoons olive oil</li>
-        <li>4 cloves garlic, minced</li>
-        <li>1 cup heavy cream</li>
-        <li>1/2 cup chicken broth</li>
-        <li>1 teaspoon Italian seasoning</li>
-        <li>1/2 cup grated Parmesan cheese</li>
-        <li>1 cup fresh spinach (optional)</li>
-        <li>1/2 cup sun-dried tomatoes (optional)</li>
-        <li>Fresh parsley for garnish</li>
-      </ul> */}
-      {/* <ul className="list-disc pl-5 text-justify space-y-3 mt-3 mb-10">
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-          map response here and below for instructions
-      </ul> */}
-
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
+      exit={{ opacity: 0, y: -30, transition: { duration: 5 } }}
+      className="mx-auto mb-10 w-full max-w-2xl place-items-start pb-20"
+    >
+      <h1 className="mt-12 font-semibold"> Suggested Recipe:</h1>
       {dish && (
-        <div className="pl-5 text-justify mt-3 mb-10">
-          <div className="text-[18px] text-[#475467] whitespace-pre-wrap result">
-            {ingredients?.replace("Ingredients:", "").trim()}
+        <div className="mb-10 mt-3 pl-5 text-justify">
+          <div className="result whitespace-pre-wrap text-[18px] text-[#475467]">
+            {intro}
           </div>
         </div>
       )}
 
-      <h2 className="text-[#475467] text-lg font-bold mt-10">Instructions:</h2>
-      <ol className="list-decimal pl-5 text-justify space-y-3 mt-3 mb-10">
-        <li>4 boneless, skinless chicken breasts</li>
-        <li>Salt and pepper to taste</li>
+      <h2 className="mt-10 text-lg font-bold text-[#475467]">Ingredients:</h2>
+      {dish && (
+        <div className="mb-10 mt-3 pl-5 text-justify">
+          <ul className="mb-10 mt-3 list-disc space-y-3 text-justify">
+            {ingredientsList.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <h2 className="mb-5 mt-10 text-lg font-bold text-[#475467]">
+        Instructions:
+      </h2>
+      <ol className="mb-10 mt-3 space-y-3 pl-5 text-justify">
+        {instructionsList.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
       </ol>
-    </div>
+
+      <button
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          if (onReset) onReset();
+        }}
+        className="mt-5 w-[290px] bg-gray-500 text-sm transition delay-100 duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-gray-800"
+      >
+        Would you like to try again?
+      </button>
+    </motion.div>
   );
 }
