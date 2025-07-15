@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function Recipe({ dish, items, onReset }) {
+export default function Recipe({ dish, onReset }) {
   function cleanText(text) {
     return text
       .split("\n")
@@ -34,6 +34,7 @@ export default function Recipe({ dish, items, onReset }) {
       exit={{ opacity: 0, y: -30, transition: { duration: 5 } }}
       className="mx-auto mb-10 w-full max-w-2xl place-items-start pb-20"
     >
+      {/* Intro Section */}
       <h1 className="mt-12 font-semibold"> Suggested Recipe:</h1>
       {dish && (
         <div className="mb-10 mt-3 pl-5 text-justify">
@@ -43,6 +44,7 @@ export default function Recipe({ dish, items, onReset }) {
         </div>
       )}
 
+      {/* Ingredients Section */}
       <h2 className="mt-10 text-lg font-bold text-[#475467]">Ingredients:</h2>
       {dish && (
         <div className="mb-10 mt-3 pl-5 text-justify">
@@ -54,6 +56,7 @@ export default function Recipe({ dish, items, onReset }) {
         </div>
       )}
 
+      {/* Instructions Section */}
       <h2 className="mb-5 mt-10 text-lg font-bold text-[#475467]">
         Instructions:
       </h2>

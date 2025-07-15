@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function AddInput({ ingredient, onInputChange }) {
   return (
     <div>

@@ -19,10 +19,9 @@ export default async function getRecipe(prompt) {
           },
         ],
       }),
-    }
+    },
   );
 
   const data = await response.json();
-  console.log("Data: ", data);
   return data.choices?.[0]?.message?.content || "No recipe found.";
 }

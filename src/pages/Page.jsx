@@ -78,7 +78,8 @@ export default function AddIngredient() {
                 <ReadyRecipe items={items} onResult={handleRecipeResult} />
               </div>
             )}
-            {/* if api is successful, return instructions */}
+
+            {/* if api is successful, returns recipe */}
             <AnimatePresence mode="wait">
               {items.length > 0 && recipeResult && (
                 <div

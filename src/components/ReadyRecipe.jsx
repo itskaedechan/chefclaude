@@ -27,12 +27,12 @@ export default function ReadyRecipe({ items, onResult }) {
         onResult("Something went wrong.");
       } finally {
         setLoading(false);
-        setTriggered(false); // reset if you want to allow re-triggering
+        setTriggered(false); // reset to allow re-triggering
       }
     };
 
     fetchRecipe();
-  }, [triggered, items]); // only run when `triggered` becomes true
+  }, [triggered, items]);
 
   return (
     <div
@@ -48,6 +48,7 @@ export default function ReadyRecipe({ items, onResult }) {
           Generate a recipe from your list of ingredients.
         </p>
       </div>
+      {/*Get a recipe button*/}
       <button
         onClick={handleClick}
         disabled={items.length === 0}
@@ -55,7 +56,6 @@ export default function ReadyRecipe({ items, onResult }) {
       >
         {loading ? "Generating..." : "Get a Recipe"}
       </button>{" "}
-      {/*Get a recipe button*/}
     </div>
   );
 }

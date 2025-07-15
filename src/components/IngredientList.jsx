@@ -1,11 +1,5 @@
 import { motion } from "framer-motion";
 
-// page 2 will be parent component for the logic
-// // - ParentComponent: useState
-// - InputComponent: gets inputValue + onChange
-// - ButtonComponent: gets onClick
-// - ListComponent: gets items
-
 function IngredientList({ items }) {
   return (
     <div className="place-items-start">
